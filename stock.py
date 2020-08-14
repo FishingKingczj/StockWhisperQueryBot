@@ -38,7 +38,6 @@ class Stock:
             message += 'Earnings Averange: <b>{:.2f}</b>\n'.format(self.earnings_ave)
             message += 'Earnings Range: <b>{:.2f} - {:.2f}</b>\n'.format(self.earnings_low, self.earnings_high)
         elif(self.state == 1):
-            print('No Such Stock Code [{:s}]'.format(self.code))
             message = 'No Such Stock Code [{:s}]'.format(self.code)
         elif(self.state == 2):
             message = 'Yahoo Server Connect Failed'
@@ -56,11 +55,13 @@ class Stock:
             info = yfstock.info
             calendar = yfstock.calendar
         except KeyError:
+            print('No Such Stock Code [{:s}]'.format(stock.code))
             stock.state = 1
-            return
+            return stock
         except Exception:
+            print('Yahoo Server Connect Failed')
             stock.state = 2
-            return
+            return stock
         # import info to stock object
         stock.name = info['shortName']
         stock.price = info['regularMarketPrice']
