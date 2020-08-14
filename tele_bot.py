@@ -15,7 +15,9 @@ def stock(update, context):
     if stock is not None:
         context.bot.send_message(
             chat_id=update.effective_chat.id, text=stock.message(),
-            parse_mode=telegram.ParseMode.MARKDOWN, disable_web_page_preview=True)
+            parse_mode=telegram.ParseMode.HTML, disable_web_page_preview=True)
+        context.bot.send_photo(chat_id=update.effective_chat.id, photo=stock.pic_url)
+
 
 def err(update, context):
     print('Error happened Time: {}, Message: {}'.format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), update.message.text))
