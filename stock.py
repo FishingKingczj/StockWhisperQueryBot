@@ -49,17 +49,17 @@ class Stock:
     def Create(code):
         stock = Stock()
         stock.code = code.upper()
-        print('Search Stock Code {}'.format(stock.code))
+        # print('Search Stock Code {}'.format(stock.code))
         try:
             yfstock = yf.Ticker(code)
             info = yfstock.info
             calendar = yfstock.calendar
         except KeyError:
-            print('No Such Stock Code [{:s}]'.format(stock.code))
+            # print('No Such Stock Code [{:s}]'.format(stock.code))
             stock.state = 1
             return stock
         except Exception:
-            print('Yahoo Server Connect Failed')
+            # print('Yahoo Server Connect Failed')
             stock.state = 2
             return stock
         # import info to stock object
