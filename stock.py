@@ -26,18 +26,18 @@ class Stock:
 
     def message(self):
         if(self.state == 0):
-            message = '[[{}] {}]({})\n'.format(self.code, self.name, self.site)
-            message += 'Price: {:.2f} ({:+.2%})\n'.format(self.price, self.float_range)
+            message = '[{} ({})]({})\n'.format(self.name, self.code, self.site)
+            message += 'Price: **{:.2f} ({:+.2%})**\n'.format(self.price, self.float_range)
             message += 'Open: {:.2f}\n'.format(self.previous_open)
             message += 'Close: {:.2f}\n'.format(self.previous_close)
-            message += 'Day Range: {:.2f} - {:.2f}\n'.format(self.day_low, self.day_high)
+            message += 'Day Range: **{:.2f} - {:.2f}**\n'.format(self.day_low, self.day_high)
             message += '52 Weeks Range: {:.2f} - {:.2f}\n'.format(self.weeks_low, self.weeks_high)
             message += 'Volume: {:d}\n\n'.format(self.volume)
 
             message += 'Earnings Date: {:s}\n'.format(self.earnings_date)
             message += 'Earnings Averange: {:.2f}\n'.format(self.earnings_ave)
             message += 'Earnings Range: {:.2f} - {:.2f}\n'.format(self.earnings_low, self.earnings_high)
-            message += '![Chart]({})'.format(stock.pic_url)
+            message += '![Chart]({})'.format(self.pic_url)
         elif(self.state == 1):
             message = 'No Such Stock Code [{:s}]'.format(self.code)
         elif(self.state == 2):
@@ -83,6 +83,3 @@ class Stock:
         stock.state = 0
         return stock
 
-
-stock = Stock.Create('aapl')
-print(stock.message())
