@@ -38,6 +38,7 @@ class Stock:
             message += 'Earnings Averange: <b>{:.2f}</b>\n'.format(self.earnings_ave)
             message += 'Earnings Range: <b>{:.2f} - {:.2f}</b>\n'.format(self.earnings_low, self.earnings_high)
         elif(self.state == 1):
+            print('No Such Stock Code [{:s}]'.format(self.code))
             message = 'No Such Stock Code [{:s}]'.format(self.code)
         elif(self.state == 2):
             message = 'Yahoo Server Connect Failed'
@@ -49,6 +50,7 @@ class Stock:
     def Create(code):
         stock = Stock()
         stock.code = code.upper()
+        print('Search Stock Code {}'.format(stock.code))
         try:
             yfstock = yf.Ticker(code)
             info = yfstock.info
