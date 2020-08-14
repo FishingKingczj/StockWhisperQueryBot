@@ -26,7 +26,7 @@ class Stock:
 
     def message(self):
         if(self.state == 0):
-            message = '<a herf={}>[{}] {}</a>\n'.format(self.site, self.code, self.name)
+            message = '<a href="{}">[{}] {}</a>\n'.format(self.site, self.code, self.name)
             message += 'Price: <b>{:.2f} ({:+.2%})</b>\n'.format(self.price, self.float_range)
             message += 'Open: <b>{:.2f}</b>\n'.format(self.previous_open)
             message += 'Close: <b>{:.2f}</b>\n'.format(self.previous_close)
