@@ -26,17 +26,17 @@ class Stock:
 
     def message(self):
         if(self.state == 0):
-            message = '[{} ({})]({})\n'.format(self.name, self.code, self.site)
+            message = '<a herf={}>[{}] {}</a>\n'.format(self.site, self.code, self.name)
             message += 'Price: <b>{:.2f} ({:+.2%})</b>\n'.format(self.price, self.float_range)
             message += 'Open: <b>{:.2f}</b>\n'.format(self.previous_open)
             message += 'Close: <b>{:.2f}</b>\n'.format(self.previous_close)
-            message += 'Day Range: <b>{:.2f} ~ {:.2f}</b>\n'.format(self.day_low, self.day_high)
-            message += '52 Weeks Range: <b>{:.2f} ~ {:.2f}</b>\n'.format(self.weeks_low, self.weeks_high)
+            message += 'Day Range: <b>{:.2f} - {:.2f}</b>\n'.format(self.day_low, self.day_high)
+            message += '52 Weeks Range: <b>{:.2f} - {:.2f}</b>\n'.format(self.weeks_low, self.weeks_high)
             message += 'Volume: <b>{:d}</b>\n\n'.format(self.volume)
 
             message += 'Earnings Date: <b>{:s}</b>\n'.format(self.earnings_date)
             message += 'Earnings Averange: <b>{:.2f}</b>\n'.format(self.earnings_ave)
-            message += 'Earnings Range: <b>{:.2f} ~ {:.2f}</b>\n'.format(self.earnings_low, self.earnings_high)
+            message += 'Earnings Range: <b>{:.2f} - {:.2f}</b>\n'.format(self.earnings_low, self.earnings_high)
         elif(self.state == 1):
             message = 'No Such Stock Code [{:s}]'.format(self.code)
         elif(self.state == 2):
@@ -81,4 +81,3 @@ class Stock:
         stock.pic_url = 'http://image.sinajs.cn/newchartv5/usstock/min/{}.gif'.format(stock.code)
         stock.state = 0
         return stock
-
