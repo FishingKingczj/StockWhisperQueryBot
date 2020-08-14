@@ -15,7 +15,7 @@ def stock(update, context):
     if stock is not None:
         context.bot.send_message(
             chat_id=update.effective_chat.id, text=stock.message(),
-            parse_mode=telegram.ParseMode.HTML)
+            parse_mode=telegram.ParseMode.HTML, disable_web_page_preview=True)
         context.bot.send_photo(chat_id=update.effective_chat.id, photo=stock.pic_url)
 
 
