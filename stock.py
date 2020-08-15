@@ -42,9 +42,9 @@ class Stock:
             message += 'Close: <b>{:.2f}</b>\n'.format(self.previous_close)
             message += 'Day Range: <b>{:.2f} - {:.2f}</b>\n'.format(self.day_low, self.day_high)
             message += '52 Weeks Range:\n<b>{:.2f} - {:.2f}</b>\n'.format(self.weeks_low, self.weeks_high)
-            message += 'Volume: <b>{:d}</b>\n'.format(self.volume)
-            message += 'AVG Volume: <b>{:d}</b>\n'.format(self.ave_volume)
-            message += 'AVG Volume 10 days: <b>{:d}</b>\n\n'.format(self.ave_10d_volume)
+            message += 'Volume: <b>{:,}</b>\n'.format(self.volume)
+            message += 'AVG Volume: <b>{:,}</b>\n'.format(self.ave_volume)
+            message += 'AVG Volume 10 days: <b>{:,}</b>\n\n'.format(self.ave_10d_volume)
             # analysis target
             message += 'Earnings Date: <b>{:s}</b>\n'.format(self.earnings_date)
             message += 'Industry: <b>{:s}</b>\n'.format(self.industry)
