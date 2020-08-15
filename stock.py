@@ -45,9 +45,9 @@ class Stock:
         message += 'Volume: <b>{:,}</b>\n'.format(self.volume)
         message += 'AVG Volume: <b>{:,}</b>\n'.format(self.ave_volume)
         message += 'AVG Volume 10 days: <b>{:,}</b>\n'.format(self.ave_10d_volume)
-        message += '- <a href="{}">Minute Chart</b>\n'.format(self.min_url)
-        message += '- <a href="{}">5 Days Chart</b>\n'.format(self.five_day_url)
-        message += '- <a href="{}">Candlestick</b>\n\n'.format(self.candle_url)
+        message += '- <a href="{}">Minute Chart</a>\n'.format(self.min_url)
+        message += '- <a href="{}">5 Days Chart</a>\n'.format(self.five_day_url)
+        message += '- <a href="{}">Candlestick</a>\n\n'.format(self.candle_url)
         # analysis target
         message += 'Earnings Date: <b>{:s}</b>\n'.format(self.earnings_date)
         message += 'Industry: <b>{:s}</b>\n'.format(self.industry)
