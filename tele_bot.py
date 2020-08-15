@@ -5,7 +5,6 @@ import sys
 import traceback
 import datetime
 import time
-update = False
 
 
 def clear(update, context):
@@ -17,14 +16,22 @@ def start(update, context):
 
 
 def stock(update, context):
+    update = False
     if update:
         context.bot.send_message(chat_id=update.effective_chat.id, text='Bot Updating, Please Wait...')
+
     stock = Stock.Create(update.message.text[1:])
     if stock is not None:
         context.bot.send_message(
-            chat_id=update.effective_chat.id, text=stock.message(),
+            chat_id=update.effective_chat.id, text=stock.stockInfo(),
             parse_mode=telegram.ParseMode.HTML, disable_web_page_preview=True)
         if stock.state == 0:
+            news = stock.stockNews()
+            if len(news > 0):
+                context.bot.send_message(
+                    chat_id=update.effective_chat.id, text=news,
+                    parse_mode=telegram.ParseMode.HTML, disable_web_page_preview=True)
+
             context.bot.send_photo(chat_id=update.effective_chat.id, photo=stock.pic_url)
 
 

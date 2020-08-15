@@ -34,7 +34,7 @@ class Stock:
     pic_url = ''
     news = []
 
-    def message(self):
+    def stockInfo(self):
         if(self.state == 0):
             message = '<a href="{}">[{}] {}</a>\n'.format(self.site, self.code, self.name)
             message += 'Price: <b>{:.2f} ({:+.2%})</b>\n'.format(self.price, self.float_range)
@@ -52,16 +52,21 @@ class Stock:
             message += 'Market Cap: <b>{:s}</b>\n'.format(self.market_cap)
             message += 'P/E: <b>{:.2f}</b>  P/S: <b>{:.2f}</b>\n'.format(self.PE, self.PS)
             message += 'EV/S: <b>{:.2f}</b>  EPS: <b>{:.2f}</b>\n'.format(self.EVS, self.EPS)
-            # news
-            for n in self.news:
-                message += '<a href="{:s}">{:s}</a>\n'.format(n['url'], n['title'])
-                message += '{:s}\n\n'.format(n['context'])
         elif(self.state == 1):
             message = 'No Such Stock Code [{:s}]'.format(self.code)
         elif(self.state == 2):
             message = 'Yahoo Server Connect Failed'
         else:
             message = 'Unknown Error'
+        return message
+
+    def stockNews(self):
+        message = ''
+        if(self.state == 0):
+            # news
+            for n in self.news:
+                message += '<a href="{:s}">{:s}</a>\n'.format(n['url'], n['title'])
+                message += '{:s}\n\n'.format(n['context'])
         return message
 
     @staticmethod
