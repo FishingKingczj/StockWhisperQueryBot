@@ -82,7 +82,6 @@ class Stock:
             stock.state = 2
             return stock
         # import info to stock object
-        print(info)
         stock.name = info['shortName']
         stock.price = info['regularMarketPrice']
         stock.ask = info['ask']
@@ -133,7 +132,7 @@ class Stock:
             array.append(
                 {
                     'url': base_url + news.attrs['href'],
-                    'text': news.text,
+                    'title': news.text,
                     'context': news.parent.next_sibling.text
                 }
             )

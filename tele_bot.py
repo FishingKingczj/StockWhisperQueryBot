@@ -4,6 +4,12 @@ from stock import Stock
 import sys
 import traceback
 import datetime
+import time
+update = False
+
+
+def clear(update, context):
+    return
 
 
 def start(update, context):
@@ -11,6 +17,8 @@ def start(update, context):
 
 
 def stock(update, context):
+    if update:
+        context.bot.send_message(chat_id=update.effective_chat.id, text='Bot Updating, Please Wait...')
     stock = Stock.Create(update.message.text[1:])
     if stock is not None:
         context.bot.send_message(
@@ -27,14 +35,21 @@ def err(update, context):
 
 
 updater = Updater(token='1167599822:AAGHpgIYWqs37vHfu9aos179TW4wQc7l4qY', use_context=True)
+print('clear history message...')
 dispatcher = updater.dispatcher
+clear_handler = MessageHandler(Filters.all, clear)
+dispatcher.add_handler(clear_handler)
+updater.start_polling()
+time.sleep(10)
+dispatcher.remove_handler(clear_handler)
+updater.stop()
+print('clear finish, reboot...')
 
 start_handler = CommandHandler('start', start)
 stock_handler = MessageHandler(Filters.regex(r'^\$.{0,8}$'), stock)
-
 dispatcher.add_error_handler(err)
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(stock_handler)
-print('strart bot...')
+print('start bot...')
 updater.start_polling()
 updater.idle()
