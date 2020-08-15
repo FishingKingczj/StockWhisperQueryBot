@@ -1,7 +1,7 @@
 import yfinance as yf
 import requests
 from bs4 import BeautifulSoup
-NEWS_MAX_SIZE = 200
+NEWS_MAX_SIZE = 100
 
 
 class Stock:

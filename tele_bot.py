@@ -26,13 +26,12 @@ def stock(update, context):
             chat_id=update.effective_chat.id, text=stock.stockInfo(),
             parse_mode=telegram.ParseMode.HTML, disable_web_page_preview=True)
         if stock.state == 0:
+            context.bot.send_photo(chat_id=update.effective_chat.id, photo=stock.pic_url)
             news = stock.stockNews()
             if len(news) > 0:
                 context.bot.send_message(
                     chat_id=update.effective_chat.id, text=news,
                     parse_mode=telegram.ParseMode.HTML, disable_web_page_preview=True)
-
-            context.bot.send_photo(chat_id=update.effective_chat.id, photo=stock.pic_url)
 
 
 def err(update, context):
