@@ -33,7 +33,7 @@ def stock(update, context):
             stock_message = 'Unknown Error'
         context.bot.send_message(
             chat_id=update.effective_chat.id, text=stock_message,
-            parse_mode=telegram.ParseMode.HTML)
+            parse_mode=telegram.ParseMode.HTML, disable_web_page_preview=True)
 
 
 def err(update, context):

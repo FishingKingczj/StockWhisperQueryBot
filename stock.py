@@ -36,7 +36,7 @@ class Stock:
     news = []
 
     def stockInfo(self):
-        message = '<a href="{}">[{}] {}</a>\n'.format(self.pic_url, self.code, self.name)
+        message = '<a href="{}">[{}] {}</a>\n'.format(self.site, self.code, self.name)
         message += 'Price: <b>{:.2f} ({:+.2%})</b>\n'.format(self.price, self.float_range)
         message += 'Open: <b>{:.2f}</b>\n'.format(self.previous_open)
         message += 'Close: <b>{:.2f}</b>\n'.format(self.previous_close)
@@ -44,7 +44,10 @@ class Stock:
         message += '52 Weeks Range:\n<b>{:.2f} - {:.2f}</b>\n'.format(self.weeks_low, self.weeks_high)
         message += 'Volume: <b>{:,}</b>\n'.format(self.volume)
         message += 'AVG Volume: <b>{:,}</b>\n'.format(self.ave_volume)
-        message += 'AVG Volume 10 days: <b>{:,}</b>\n\n'.format(self.ave_10d_volume)
+        message += 'AVG Volume 10 days: <b>{:,}</b>\n'.format(self.ave_10d_volume)
+        message += '- <a href="{}">Minute Chart</b>\n'.format(self.min_url)
+        message += '- <a href="{}">5 Days Chart</b>\n'.format(self.five_day_url)
+        message += '- <a href="{}">Candlestick</b>\n\n'.format(self.candle_url)
         # analysis target
         message += 'Earnings Date: <b>{:s}</b>\n'.format(self.earnings_date)
         message += 'Industry: <b>{:s}</b>\n'.format(self.industry)
@@ -111,7 +114,9 @@ class Stock:
         stock.EPS = info['trailingEps']
         # websites and news sites
         stock.site = 'https://finance.yahoo.com/quote/' + stock.code
-        stock.pic_url = 'http://image.sinajs.cn/newchartv5/usstock/min/{}.gif'.format(stock.code)
+        stock.min_url = 'http://image.sinajs.cn/newchartv5/usstock/min/{}.gif'.format(stock.code)
+        stock.five_day_url = 'http://image.sinajs.cn/newchartv5/usstock/min_week/{}.gif'.format(stock.code)
+        stock.candle_url = 'http://image.sinajs.cn/newchartv5/usstock/daily/{}.gif'.format(stock.code)
         try:
             stock.news = Stock.GetNews(stock.code)
         except Exception:
@@ -144,3 +149,16 @@ class Stock:
                 }
             )
         return array
+
+
+# stock_message = ''
+# stock = Stock.Create('AAPL')
+# if(stock.state == 0):
+#     stock_message = stock.stockInfo() + '\n' + stock.stockNews()
+# elif(stock.state == 1):
+#     stock_message = 'No Such Stock Code [{:s}]'.format(stock.code)
+# elif(stock.state == 2):
+#     stock_message = 'Yahoo Server Connect Failed'
+# else:
+#     stock_message = 'Unknown Error'
+# print(stock_message)
