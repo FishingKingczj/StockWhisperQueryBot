@@ -5,6 +5,7 @@ import sys
 import traceback
 import datetime
 import time
+BOT_UPDATING = False
 
 
 def clear(update, context):
@@ -16,8 +17,7 @@ def start(update, context):
 
 
 def stock(update, context):
-    update = False
-    if update:
+    if BOT_UPDATING:
         context.bot.send_message(chat_id=update.effective_chat.id, text='Bot Updating, Please Wait...')
 
     stock = Stock.Create(update.message.text[1:])
