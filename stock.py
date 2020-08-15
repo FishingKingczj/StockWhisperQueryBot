@@ -68,6 +68,7 @@ class Stock:
             for n in self.news:
                 message += '<a href="{:s}">{:s}</a>\n'.format(n['url'], n['title'])
                 message += '{:s}\n\n'.format(n['context'])
+            message += '<a href="{}">MORE</a>\n'.format(self.site)
         return message
 
     @staticmethod
