@@ -1,6 +1,7 @@
 import yfinance as yf
 import requests
 from bs4 import BeautifulSoup
+NEWS_MAX_SIZE = 200
 
 
 class Stock:
@@ -134,11 +135,18 @@ class Stock:
         array = []
         for i in range(0, 3):
             news = soup.select('.StretchedBox')[i].parent
+            context = news.parent.next_sibling.text
+
+            if len(context) > NEWS_MAX_SIZE:
+                for i in range(NEWS_MAX_SIZE, len(context)):
+                    if (context[i] == ' '):
+                        context = context[:i] + '...'
+                        break
             array.append(
                 {
                     'url': base_url + news.attrs['href'],
                     'title': news.text,
-                    'context': news.parent.next_sibling.text
+                    'context': context
                 }
             )
         return array
