@@ -36,39 +36,32 @@ class Stock:
     news = []
 
     def stockInfo(self):
-        if(self.state == 0):
-            message = '<a href="{}">[{}] {}</a>\n'.format(self.site, self.code, self.name)
-            message += 'Price: <b>{:.2f} ({:+.2%})</b>\n'.format(self.price, self.float_range)
-            message += 'Open: <b>{:.2f}</b>\n'.format(self.previous_open)
-            message += 'Close: <b>{:.2f}</b>\n'.format(self.previous_close)
-            message += 'Day Range: <b>{:.2f} - {:.2f}</b>\n'.format(self.day_low, self.day_high)
-            message += '52 Weeks Range:\n<b>{:.2f} - {:.2f}</b>\n'.format(self.weeks_low, self.weeks_high)
-            message += 'Volume: <b>{:,}</b>\n'.format(self.volume)
-            message += 'AVG Volume: <b>{:,}</b>\n'.format(self.ave_volume)
-            message += 'AVG Volume 10 days: <b>{:,}</b>\n\n'.format(self.ave_10d_volume)
-            # analysis target
-            message += 'Earnings Date: <b>{:s}</b>\n'.format(self.earnings_date)
-            message += 'Industry: <b>{:s}</b>\n'.format(self.industry)
-            message += 'Sector: <b>{:s}</b>\n'.format(self.sector)
-            message += 'Market Cap: <b>{:s}</b>\n'.format(self.market_cap)
-            message += 'P/E: <b>{:.2f}</b>  P/S: <b>{:.2f}</b>\n'.format(self.PE, self.PS)
-            message += 'EV/S: <b>{:.2f}</b>  EPS: <b>{:.2f}</b>\n'.format(self.EVS, self.EPS)
-        elif(self.state == 1):
-            message = 'No Such Stock Code [{:s}]'.format(self.code)
-        elif(self.state == 2):
-            message = 'Yahoo Server Connect Failed'
-        else:
-            message = 'Unknown Error'
+        message = '<a href="{}">[{}] {}</a>\n'.format(self.pic_url, self.code, self.name)
+        message += 'Price: <b>{:.2f} ({:+.2%})</b>\n'.format(self.price, self.float_range)
+        message += 'Open: <b>{:.2f}</b>\n'.format(self.previous_open)
+        message += 'Close: <b>{:.2f}</b>\n'.format(self.previous_close)
+        message += 'Day Range: <b>{:.2f} - {:.2f}</b>\n'.format(self.day_low, self.day_high)
+        message += '52 Weeks Range:\n<b>{:.2f} - {:.2f}</b>\n'.format(self.weeks_low, self.weeks_high)
+        message += 'Volume: <b>{:,}</b>\n'.format(self.volume)
+        message += 'AVG Volume: <b>{:,}</b>\n'.format(self.ave_volume)
+        message += 'AVG Volume 10 days: <b>{:,}</b>\n\n'.format(self.ave_10d_volume)
+        # analysis target
+        message += 'Earnings Date: <b>{:s}</b>\n'.format(self.earnings_date)
+        message += 'Industry: <b>{:s}</b>\n'.format(self.industry)
+        message += 'Sector: <b>{:s}</b>\n'.format(self.sector)
+        message += 'Market Cap: <b>{:s}</b>\n'.format(self.market_cap)
+        message += 'P/E: <b>{:.2f}</b>  P/S: <b>{:.2f}</b>\n'.format(self.PE, self.PS)
+        message += 'EV/S: <b>{:.2f}</b>  EPS: <b>{:.2f}</b>\n'.format(self.EVS, self.EPS)
         return message
 
     def stockNews(self):
         message = ''
-        if(self.state == 0):
-            # news
-            for n in self.news:
-                message += '<a href="{:s}">{:s}</a>\n'.format(n['url'], n['title'])
-                message += '{:s}\n\n'.format(n['context'])
-            message += '<a href="{}">MORE</a>\n'.format(self.site)
+        # news
+        if len(self.news) > 0:
+            message += '<b>Latest News:</b>\n'
+        for n in self.news:
+            message += '- <a href="{:s}">{:s}</a>\n'.format(n['url'], n['title'])
+        message += '<a href="{}">MORE</a>'.format(self.site)
         return message
 
     @staticmethod
@@ -136,18 +129,18 @@ class Stock:
         array = []
         for i in range(0, 3):
             news = soup.select('.StretchedBox')[i].parent
-            context = news.parent.next_sibling.text
+            # context = news.parent.next_sibling.text
 
-            if len(context) > NEWS_MAX_SIZE:
-                for i in range(NEWS_MAX_SIZE, len(context)):
-                    if (context[i] == ' '):
-                        context = context[:i] + '...'
-                        break
+            # if len(context) > NEWS_MAX_SIZE:
+            #     for i in range(NEWS_MAX_SIZE, len(context)):
+            #         if (context[i] == ' '):
+            #             context = context[:i] + '...'
+            #             break
             array.append(
                 {
                     'url': base_url + news.attrs['href'],
                     'title': news.text,
-                    'context': context
+                    # 'context': context
                 }
             )
         return array

@@ -22,16 +22,18 @@ def stock(update, context):
 
     stock = Stock.Create(update.message.text[1:])
     if stock is not None:
+        stock_message = ''
+        if(stock.state == 0):
+            stock_message = stock.stockInfo() + '\n' + stock.stockNews()
+        elif(stock.state == 1):
+            stock_message = 'No Such Stock Code [{:s}]'.format(stock.code)
+        elif(stock.state == 2):
+            stock_message = 'Yahoo Server Connect Failed'
+        else:
+            stock_message = 'Unknown Error'
         context.bot.send_message(
-            chat_id=update.effective_chat.id, text=stock.stockInfo(),
-            parse_mode=telegram.ParseMode.HTML, disable_web_page_preview=True)
-        if stock.state == 0:
-            context.bot.send_photo(chat_id=update.effective_chat.id, photo=stock.pic_url)
-            news = stock.stockNews()
-            if len(news) > 0:
-                context.bot.send_message(
-                    chat_id=update.effective_chat.id, text=news,
-                    parse_mode=telegram.ParseMode.HTML, disable_web_page_preview=True)
+            chat_id=update.effective_chat.id, text=stock_message,
+            parse_mode=telegram.ParseMode.HTML)
 
 
 def err(update, context):
