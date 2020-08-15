@@ -61,7 +61,7 @@ class Stock:
             message += '<b>Latest News:</b>\n'
         for n in self.news:
             message += '- <a href="{:s}">{:s}</a>\n'.format(n['url'], n['title'])
-        message += '<a href="{}">MORE</a>'.format(self.site)
+        message += '\n<a href="{}">MORE NEWS</a>'.format(self.site)
         return message
 
     @staticmethod
